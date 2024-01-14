@@ -1,15 +1,28 @@
 {
-  "name": "static-site",
+  "name": "readme_genny",
   "version": "1.0.0",
-  "description": "a README generator",
+  "description": "a readme generator",
   "main": "index.js",
-  "scripts": {},
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "inquirer": "8.2.4"
+  "scripts": {
+    "test": "test"
   },
-  "devDependencies": {
-    "typescript": "^5.3.3"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/e6m9/README_GENNY.git"
+  },
+  "keywords": [
+    "readme",
+    "markdown",
+    "generator",
+    "inquirer"
+  ],
+  "author": "e6m9",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/e6m9/README_GENNY/issues"
+  },
+  "homepage": "https://github.com/e6m9/README_GENNY#readme",
+  "dependencies": {
+    "inquirer": "^8.2.4"
   }
 }
