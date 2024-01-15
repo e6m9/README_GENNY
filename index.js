@@ -1,6 +1,5 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-const { makeBadge, ValidationError } = require('badge-maker');
 
 const generateMarkdown = require('./utils/generateMarkdown');
 
@@ -30,7 +29,9 @@ if (!fs.existsSync('./GeneratedREADME')) {
     fs.mkdirSync('./GeneratedREADME');
 }
 
-writeToFile('./GeneratedREADME/README.md', init);
+// const writeToFile
+
+fs.writeFileSync('./GeneratedREADME/README.md', init);
 console.log('Initial README.md generated successfully');
 
 inquirer
@@ -104,7 +105,7 @@ inquirer
             fs.mkdirSync('./GeneratedREADME');
         }
 
-        writeToFile('./GeneratedREADME/README.md', generatedReadme);
+        fs.writeFileSync('./GeneratedREADME/README.md', generatedReadme);
         console.log('README.md generated successfully');
     });
 
