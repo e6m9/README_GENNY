@@ -64,8 +64,8 @@ inquirer
             'GNU General Public License v2.0',
             'GNU Lesser General Public License v2.1',
             'Mozilla Public License 2.0',
-            'The Unlicense'],
-            default: '',
+            'The Unlicense',
+            'No License',]
         },
         {
             type: 'input',
@@ -86,7 +86,22 @@ const writeToFile = (fileName, data) => {
 
 // TODO: Create a function to initialize app
 function init() {}
-const init = 
+const init = generateMarkdown({
+    title: '',
+    description: '',
+    install: '',
+    usage: '',
+    license: '',
+    contribute: '',
+    tests: '',
+    questions: '',
+  });
+
+  if (!fs.existsSync('./GeneratedREADME')) {
+    fs.mkdirSync('./GeneratedREADME');
+  }
+
+  writeToFile('./GeneratedREADME/README.md', initialTemplate);
 
 // Function call to initialize app
 init();
