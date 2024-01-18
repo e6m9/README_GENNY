@@ -8,10 +8,11 @@ const questions = [
     'please enter a description for yr project...',
     'please describe the installation for yr project...',
     'please describe how to use yr project...',
-    'please enter the github usernames of the contributors to yr project...',
+    'please describe how others can contribute to yr project...',
     'what kind of license does yr project have?',
     'please describe how to test yr project...',
-    'please enter yr email address...'
+    'please enter yr github username...',
+    'please enter yr email address...',
 ];
 
 const init = generateMarkdown({
@@ -56,11 +57,12 @@ inquirer
             type: 'input',
             message: questions[3],
             name: 'usage',
+            default: '',
         },
         {
             type: 'input',
             message: questions[4],
-            name: 'gitName',
+            name: 'contribute',
         },
         {
             type: 'list',
@@ -81,25 +83,30 @@ inquirer
                     'Mozilla Public License 2.0',
                     'The Unlicense',
                     'No License',
-                ]
+                ],
+                default: '',
         },
         {
             type: 'input',
             message: questions[6],
-            name: 'needTest',
+            name: 'test',
             default: '',
         },
         {
             type: 'input',
             message: questions[7],
-            name: 'email',
+            name: 'gitName',
         },
+        {
+            type: 'input',
+            message: questions[8],
+            name: 'email',
+        }
     ])
     .then((answers) => {
         console.log('User answers:', answers);
 
         const generatedReadme = generateMarkdown(answers);
-
 
         if (!fs.existsSync('./GeneratedREADME')) {
             fs.mkdirSync('./GeneratedREADME');
