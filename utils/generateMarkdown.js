@@ -1,18 +1,6 @@
 // TODO: Create a function that returns a license badge based on which license is passed in
 const { makeBadge, ValidationError } = require('badge-maker');
 
-const gitUser = data.gitname
-const badgeSvg = makeBadge(format);
-
-
-const format = {
-  label: 'license',
-  message: license,
-  color: 'brightgreen',
-};
-
-// ${badgeSvg} 
-
 function renderLicenseSection(data) {
   const licenseUrl = {
     'MIT License': 'https://opensource.org/license/mit/',
@@ -30,11 +18,20 @@ function renderLicenseSection(data) {
     'The Unlicense': 'https://unlicense.org/'
   }
 
-  const licenseLink = `Use the following link to learn more about the license: (${licenseUrl[data.license]})`;
+  const licenseLink = `\nUse the following link to learn more about the license: (${licenseUrl[data.license]})`;
+  return licenseLink;
 }
 
 // TODO: Create a function to generate markdown for README
 function generateMarkdown(data) {
+
+  const format = {
+    label: 'license:',
+    message: data.license,
+    color: '#008080',
+  };
+
+  const gitUser = `[${data.gitName} on GitHub](https://github.com/${data.gitName})`;
 
   const tableOfContents =
     `- [Installation](#installation)\n` +
@@ -44,15 +41,16 @@ function generateMarkdown(data) {
     `- [Tests](#tests)\n` +
     `- [Questions](#questions)`;
 
-    renderLicenseSection(data);
+  const licenseLink = renderLicenseSection(data);
+  const badgeSvg = makeBadge(format);
 
-  return `# ${data.title}\n${licenseBadge}
+  return `# ${data.title}\n${badgeSvg}
 
 ## Description\n${data.description}
 
 ## Table of Contents\n${tableOfContents}
 
-## Installation\n${data.install}
+## Installation\n${data.needInstall}
 
 ## Usage\n${data.usage}
 
@@ -60,9 +58,9 @@ function generateMarkdown(data) {
 
 ## How to Contribute\n${data.contribute}
 
-## Tests\n${data.tests}
+## Tests\n${data.test}
   
-## Questions\n${gitUser}\n${data.email}`;
+## Questions\n${gitUser}\n\n contact me at ${data.email} with any questions you may have.`;
 }
 
 const initialTemplate = generateMarkdown({
