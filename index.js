@@ -1,94 +1,114 @@
-// TODO: Include packages needed for this application
 const inquirer = require('inquirer');
 const fs = require('fs');
 
-const { makeBadge, ValidationError } = require('badge-maker')
 const generateMarkdown = require('./utils/generateMarkdown');
 
-// TODO: Create an array of questions for user input
-const questions = ['please enter a title for yr project...',
-'please enter a description for yr project...',
-'please describe the installation for yr project...',
-'please describe how to use yr project...',,
-'please enter the github usernames of the contributors to yr project...',
-'what kind of license does yr project have?',
-'please describe how to test yr project...',
-'please enter yr email address...'];
-   
-    // .then ((answers) => {}
+const questions = [
+    'please enter a title for yr project...',
+    'please enter a description for yr project...',
+    'please describe the installation for yr project...',
+    'please describe how to use yr project...',
+    'please describe how others can contribute to yr project...',
+    'what kind of license does yr project have?',
+    'please describe how to test yr project...',
+    'please enter yr github username...',
+    'please enter yr email address...',
+];
 
-// generate sections before populating with answers
-generateMarkdown();
+const init = generateMarkdown({
+    title: '',
+    description: '',
+    install: '',
+    usage: '',
+    license: '',
+    contribute: '',
+    tests: '',
+    questions: '',
+});
+
+if (!fs.existsSync('./GeneratedREADME')) {
+    fs.mkdirSync('./GeneratedREADME');
+}
+
+// const writeToFile
+
+fs.writeFileSync('./GeneratedREADME/README.md', init);
+console.log('Initial README.md generated successfully');
 
 inquirer
     .prompt([
         {
             type: 'input',
-            message: 'please enter a title for yr project...',
+            message: questions[0],
             name: 'title',
         },
-        {   
+        {
             type: 'input',
-            message: 'please enter a description of yr project...',
+            message: questions[1],
             name: 'description',
         },
         {
             type: 'input',
-            message: 'please describe the installation for yr project...',
+            message: questions[2],
             name: 'needInstall',
-            default: '',
         },
         {
             type: 'input',
-            message: 'please describe how to use yr project...',
+            message: questions[3],
             name: 'usage',
         },
         {
             type: 'input',
-            message: 'please enter the github usernames of the contributors to yr project...',
-            name: 'gitName',
+            message: questions[4],
+            name: 'contribute',
         },
         {
             type: 'list',
-            message: 'what kind of license does yr project have?',
+            message: questions[5],
             name: 'license',
-            choices: ['MIT License',
-            'Apache License 2.0',
-            'Boost Software License 1.0',
-            'BSD 3-Clause "New" or "Revised" License',
-            'BSD 2-Clause "Simplified" License',
-            'Creative Commons Zero v1.0 Universal',
-            'Eclipse Public License 2.0',
-            'GNU General Public License v3.0',
-            'GNU Affero General Public License v3.0',
-            'GNU General Public License v2.0',
-            'GNU Lesser General Public License v2.1',
-            'Mozilla Public License 2.0',
-            'The Unlicense'],
-            default: '',
+            choices:
+                ['MIT License',
+                    'Apache License 2.0',
+                    'Boost Software License 1.0',
+                    'BSD 3-Clause "New" or "Revised" License',
+                    'BSD 2-Clause "Simplified" License',
+                    'Creative Commons Zero v1.0 Universal',
+                    'Eclipse Public License 2.0',
+                    'GNU General Public License v3.0',
+                    'GNU Affero General Public License v3.0',
+                    'GNU General Public License v2.0',
+                    'GNU Lesser General Public License v2.1',
+                    'Mozilla Public License 2.0',
+                    'The Unlicense',
+                    'No License',
+                ],
+                default: '',
         },
         {
             type: 'input',
-            message: 'please describe how to test yr project...',
-            name: 'needTest',
-            default: '',
+            message: questions[6],
+            name: 'test',
         },
         {
             type: 'input',
-            message: 'please enter yr email address...',
+            message: questions[7],
+            name: 'gitName',
+        },
+        {
+            type: 'input',
+            message: questions[8],
             name: 'email',
-        },
+        }
     ])
-// TODO: Create a function to write README file
-const writeToFile = (fileName, data) => {
+    .then((answers) => {
+        console.log('User answers:', answers);
 
-}
+        const generatedReadme = generateMarkdown(answers);
 
-// TODO: Create a function to initialize app
-function init() {}
-const init = 
+        if (!fs.existsSync('./GeneratedREADME')) {
+            fs.mkdirSync('./GeneratedREADME');
+        }
 
-// Function call to initialize app
-init();
-
-
+        fs.writeFileSync('./GeneratedREADME/README.md', generatedReadme);
+        console.log('README.md generated successfully');
+    });

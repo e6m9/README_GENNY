@@ -1,61 +1,74 @@
+const { makeBadge } = require('badge-maker');
+
 // TODO: Create a function that returns a license badge based on which license is passed in
-// If there is no license, return an empty string
-function renderLicenseBadge(license) {}
-  const format = {
-    label: 'build',
-    message: 'passed',
-    color: 'brightgreen',
+function renderLicenseSection(data) {
+  const licenseUrl = {
+    'MIT License': 'https://opensource.org/license/mit/',
+    'Apache License 2.0': 'https://www.apache.org/licenses/LICENSE-2.0',
+    'Boost Software License 1.0': 'https://www.boost.org/LICENSE_1_0.txt',
+    'BSD 3-Clause "New" or "Revised" License': 'https://opensource.org/license/bsd-3-clause/',
+    'BSD 2-Clause "Simplified" License': 'https://opensource.org/license/bsd-2-clause/',
+    'Creative Commons Zero v1.0 Universal': 'https://creativecommons.org/publicdomain/zero/1.0/',
+    'Eclipse Public License 2.0': 'https://www.eclipse.org/legal/epl-2.0/',
+    'GNU General Public License v3.0': 'https://www.gnu.org/licenses/gpl-3.0.en.html',
+    'GNU Affero General Public License v3.0': 'https://www.gnu.org/licenses/agpl-3.0.en.html',
+    'GNU General Public License v2.0': 'https://www.gnu.org/licenses/old-licenses/gpl-2.0.html',
+    'GNU Lesser General Public License v2.1': 'https://www.gnu.org/licenses/lgpl-2.1.html',
+    'Mozilla Public License 2.0': 'https://www.mozilla.org/en-US/MPL/2.0/',
+    'The Unlicense': 'https://unlicense.org/'
   }
 
-  const svg = makeBadge(format)
-  console.log(svg)
-
-  try {makeBadge({})
-} catch (e) {
-  console.log(e)
+  const licenseLink = `Use the following link to learn more about the license: (${licenseUrl[data.license]})`;
+  return licenseLink;
 }
-
-// TODO: Create a function that returns the license link
-// If there is no license, return an empty string
-function renderLicenseLink(license) {}
-
-// TODO: Create a function that returns the license section of README
-// If there is no license, return an empty string
-function renderLicenseSection(license) {}
 
 // TODO: Create a function to generate markdown for README
 function generateMarkdown(data) {
- 
-  const tableOfContents = 
- `- [Installation](#installation)
-  - [Usage](#usage)
-  - [License](#license)
-  - [Contributing](#contributing)
-  - [Tests](#tests)
-  - [Questions](#questions)`
+  const format = {
+    label: 'license',
+    message: data.license, // Use data.license here
+    color: '#008080',
+  };
 
-  return `# ${data.title}
+  const tableOfContents =
+    `- [Installation](#installation)\n` +
+    `- [Usage](#usage)\n` +
+    `- [License](#license)\n` +
+    `- [Contributing](#contributing)\n` +
+    `- [Tests](#tests)\n` +
+    `- [Questions](#questions)`;
 
-  ## Description/n${data.description}
+  const licenseLink = renderLicenseSection(data);
+  const badgeSvg = makeBadge(format);
 
-  ## Table of Contents/n${tableOfContents}
+  return `# ${data.title}\n${badgeSvg}
 
-  ## Installation/n${data.install}
+## Description\n${data.description}
 
-  ## Usage/n${data.usage}
+## Table of Contents\n${tableOfContents}
 
-  ## License/n${data.license}
+## Installation\n${data.install}
 
-  ## Badges/n
+## Usage\n${data.usage}
 
-  ## How to Contribute/n${data.contribute}
+## License\n${data.license}\n${licenseLink}
 
-  ## Tests/n${data.tests}
+## How to Contribute\n${data.contribute}
+
+## Tests\n${data.tests}
   
-  ## Questions/n${data.questions}`;
+## Questions\n${data.gitName}\n${data.email}`;
 }
 
+const initialTemplate = generateMarkdown({
+  title: '',
+  description: '',
+  install: '',
+  usage: '',
+  license: '',
+  contribute: '',
+  tests: '',
+  questions: '',
+});
+
 module.exports = generateMarkdown;
-
-
-
