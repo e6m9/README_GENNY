@@ -51,13 +51,11 @@ inquirer
             type: 'input',
             message: questions[2],
             name: 'needInstall',
-            default: '',
         },
         {
             type: 'input',
             message: questions[3],
             name: 'usage',
-            default: '',
         },
         {
             type: 'input',
@@ -84,13 +82,11 @@ inquirer
                     'The Unlicense',
                     'No License',
                 ],
-                default: '',
         },
         {
             type: 'input',
             message: questions[6],
             name: 'test',
-            default: '',
         },
         {
             type: 'input',
