@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/e6m9/README_GENNY#readme",
   "dependencies": {
+    "badge-maker": "^3.3.1",
     "inquirer": "^8.2.4"
   }
 }

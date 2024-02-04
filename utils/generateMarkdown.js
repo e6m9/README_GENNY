@@ -1,9 +1,8 @@
 // TODO: Create a function that returns a license badge based on which license is passed in
 const { makeBadge, ValidationError } = require('badge-maker');
 
-
-function renderLicenseSection(license) {
-  const licenseLinks = {
+function renderLicenseSection(data) {
+  const licenseUrl = {
     'MIT License': 'https://opensource.org/license/mit/',
     'Apache License 2.0': 'https://www.apache.org/licenses/LICENSE-2.0',
     'Boost Software License 1.0': 'https://www.boost.org/LICENSE_1_0.txt',
@@ -19,27 +18,20 @@ function renderLicenseSection(license) {
     'The Unlicense': 'https://unlicense.org/'
   }
 
-  const licenseUrl = licenseLinks[license] || '';
-
-  const format = {
-    label: 'license',
-    message: license,
-    color: 'brightgreen',
-  };
-
-  try {
-    const badgeSvg = makeBadge(format);
-    const licenseLink = `[License Info](${licenseUrl})`;
-    return `## License\n${badgeSvg} ${licenseLink}\n\n`;
-  } catch (e) {
-    console.e('Error creating license badge:', e);
-    return '';
-  }
+  const licenseLink = `\nUse the following link to learn more about the license: (${licenseUrl[data.license]})`;
+  return licenseLink;
 }
 
 // TODO: Create a function to generate markdown for README
 function generateMarkdown(data) {
-  const licenseSection = renderLicenseSection(data.license)
+
+  const format = {
+    label: 'license:',
+    message: data.license,
+    color: '#008080',
+  };
+
+  const gitUser = `[${data.gitName} on GitHub](https://github.com/${data.gitName})`;
 
   const tableOfContents =
     `- [Installation](#installation)\n` +
@@ -49,23 +41,26 @@ function generateMarkdown(data) {
     `- [Tests](#tests)\n` +
     `- [Questions](#questions)`;
 
-  return `# ${data.title}
+  const licenseLink = renderLicenseSection(data);
+  const badgeSvg = makeBadge(format);
 
-  ## Description\n${data.description}
+  return `# ${data.title}\n${badgeSvg}
 
-  ## Table of Contents\n${tableOfContents}
+## Description\n${data.description}
 
-  ## Installation\n${data.install}
+## Table of Contents\n${tableOfContents}
 
-  ## Usage\n${data.usage}
+## Installation\n${data.needInstall}
 
-  ${licenseSection} 
+## Usage\n${data.usage}
 
-  ## How to Contribute\n${data.contribute}
+## License\n${data.license}\n${licenseLink}
 
-  ## Tests\n${data.tests}
+## How to Contribute\n${data.contribute}
+
+## Tests\n${data.test}
   
-  ## Questions\n${data.questions}`;
+## Questions\n${gitUser}\n\n contact me at ${data.email} with any questions you may have.`;
 }
 
 const initialTemplate = generateMarkdown({
