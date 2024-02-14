@@ -1,6 +1,7 @@
+// imports badge-maker
 const { makeBadge } = require('badge-maker');
 
-// TODO: Create a function that returns a license badge based on which license is passed in
+// adds the appropriate link to the answer of the license question
 function renderLicenseSection(data) {
   const licenseUrl = {
     'MIT License': 'https://opensource.org/license/mit/',
@@ -18,18 +19,22 @@ function renderLicenseSection(data) {
     'The Unlicense': 'https://unlicense.org/'
   }
 
+  // sets the full license response as a variable
   const licenseLink = `Use the following link to learn more about the license: (${licenseUrl[data.license]})`;
   return licenseLink;
 }
 
-// TODO: Create a function to generate markdown for README
+// generates the markdown file
 function generateMarkdown(data) {
+
+  // uses badge-maker to build a badge using the response from the license question
   const format = {
     label: 'license',
-    message: data.license, // Use data.license here
+    message: data.license,
     color: '#008080',
   };
 
+  // sets the format of the table of contents
   const tableOfContents =
     `- [Installation](#installation)\n` +
     `- [Usage](#usage)\n` +
@@ -38,9 +43,12 @@ function generateMarkdown(data) {
     `- [Tests](#tests)\n` +
     `- [Questions](#questions)`;
 
+  // sets the return of the renderLicenseSection function and the badge as consts
   const licenseLink = renderLicenseSection(data);
   const badgeSvg = makeBadge(format);
 
+  //renders the badge below the project title and fills in the table of contents with user inputs
+  //github account is linked using github user input
   return `# ${data.title}\n${badgeSvg}
 
 ## Description\n${data.description}
@@ -60,6 +68,7 @@ function generateMarkdown(data) {
 ## Questions\n[${data.gitName} on GitHub](https://github.com/${data.gitName})\n\n${data.email}`;
 }
 
+//initializes the markdown template
 const initialTemplate = generateMarkdown({
   title: '',
   description: '',
@@ -71,4 +80,5 @@ const initialTemplate = generateMarkdown({
   questions: '',
 });
 
+//exports the util to be used elsewhere
 module.exports = generateMarkdown;

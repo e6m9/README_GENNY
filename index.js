@@ -1,8 +1,11 @@
+//imports inquirer and fs
 const inquirer = require('inquirer');
 const fs = require('fs');
 
+//imports the util
 const generateMarkdown = require('./utils/generateMarkdown');
 
+//sets questions to a variable in an array
 const questions = [
     'please enter a title for yr project...',
     'please enter a description for yr project...',
@@ -15,6 +18,7 @@ const questions = [
     'please enter yr email address...',
 ];
 
+//grabs the initialized markdown from the util
 const init = generateMarkdown({
     title: '',
     description: '',
@@ -26,15 +30,16 @@ const init = generateMarkdown({
     questions: '',
 });
 
+//writes a folder to hold the generated readme if it doesn't already exist
 if (!fs.existsSync('./GeneratedREADME')) {
     fs.mkdirSync('./GeneratedREADME');
 }
 
-// const writeToFile
-
+//writes an initialized readme file in the above folder and displays a message on success
 fs.writeFileSync('./GeneratedREADME/README.md', init);
 console.log('Initial README.md generated successfully');
 
+//collects user data by pulling the questions from the array in order and giving them a variable name
 inquirer
     .prompt([
         {
@@ -100,15 +105,20 @@ inquirer
             name: 'email',
         }
     ])
+    
+    //shows user their answers
     .then((answers) => {
         console.log('User answers:', answers);
 
+        //fills the readme file with user answers
         const generatedReadme = generateMarkdown(answers);
 
+        //checks if a readme file exists so a previous one won't be overwritten
         if (!fs.existsSync('./GeneratedREADME')) {
             fs.mkdirSync('./GeneratedREADME');
         }
 
+        //writes the final generated readme and logs that it was done so successfully
         fs.writeFileSync('./GeneratedREADME/README.md', generatedReadme);
         console.log('README.md generated successfully');
     });
