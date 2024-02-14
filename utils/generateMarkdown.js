@@ -47,7 +47,7 @@ function generateMarkdown(data) {
 
 ## Table of Contents\n${tableOfContents}
 
-## Installation\n${data.install}
+## Installation\n${data.needInstall}
 
 ## Usage\n${data.usage}
 
@@ -55,9 +55,9 @@ function generateMarkdown(data) {
 
 ## How to Contribute\n${data.contribute}
 
-## Tests\n${data.tests}
+## Tests\n${data.test}
   
-## Questions\n${data.gitName}\n${data.email}`;
+## Questions\n[${data.gitName} on GitHub](https://github.com/${data.gitName})\n\n${data.email}`;
 }
 
 const initialTemplate = generateMarkdown({
