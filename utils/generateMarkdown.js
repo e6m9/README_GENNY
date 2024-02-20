@@ -38,10 +38,12 @@ function generateMarkdown(data) {
   const tableOfContents =
     `- [Installation](#installation)\n` +
     `- [Usage](#usage)\n` +
-    `- [License](#license)\n` +
-    `- [Contributing](#contributing)\n` +
     `- [Tests](#tests)\n` +
-    `- [Questions](#questions)`;
+    `- [License](#license)\n` +
+    `- [Acknowledgements](#acknowledgements)\n` +
+    `- [Further-Development](#further-development)\n` +
+    `- [Contact](#contact)\n` +
+    `- [Final-Thoughts](#final-thoughts)`;
 
   // sets the return of the renderLicenseSection function and the badge as consts
   const licenseLink = renderLicenseSection(data);
@@ -59,13 +61,17 @@ function generateMarkdown(data) {
 
 ## Usage\n${data.usage}
 
+## Tests\n${data.test}
+
 ## License\n${data.license}\n${licenseLink}
 
-## How to Contribute\n${data.contribute}
+## Acknowledgements\n${data.tech}
 
-## Tests\n${data.test}
+## Further Development\n
   
-## Questions\n[${data.gitName} on GitHub](https://github.com/${data.gitName})\n\n${data.email}`;
+## Contact\nAuthor:\n  [${data.gitName} on GitHub](https://github.com/${data.gitName})\n\nPlease send any questions or concerns to:\n  ${data.email}
+
+## Final Thoughts\n`;
 }
 
 //initializes the markdown template
@@ -74,10 +80,12 @@ const initialTemplate = generateMarkdown({
   description: '',
   install: '',
   usage: '',
-  license: '',
-  contribute: '',
   tests: '',
-  questions: '',
+  license: '',
+  acknowledge: '',
+  developmemt: '',
+  contact: '',
+  finalthoughts: '',
 });
 
 //exports the util to be used elsewhere

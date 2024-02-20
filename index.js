@@ -11,7 +11,7 @@ const questions = [
     'please enter a description for yr project...',
     'please describe the installation for yr project...',
     'please describe how to use yr project...',
-    'please describe how others can contribute to yr project...',
+    'please list the packages and technologies you used for this...',
     'what kind of license does yr project have?',
     'please describe how to test yr project...',
     'please enter yr github username...',
@@ -24,11 +24,13 @@ const init = generateMarkdown({
     description: '',
     install: '',
     usage: '',
-    license: '',
-    contribute: '',
     tests: '',
-    questions: '',
-});
+    license: '',
+    acknowledge: '',
+    developmemt: '',
+    contact: '',
+    finalthoughts: '',
+  });
 
 //writes a folder to hold the generated readme if it doesn't already exist
 if (!fs.existsSync('./GeneratedREADME')) {
@@ -65,7 +67,7 @@ inquirer
         {
             type: 'input',
             message: questions[4],
-            name: 'contribute',
+            name: 'tech',
         },
         {
             type: 'list',
